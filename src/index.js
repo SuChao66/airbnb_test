@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { HashRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+// 导入根组件
+import App from '@/App';
+// 导入样式文件
+import 'antd/dist/reset.css';
+import "normalize.css";
+import '@/assets/css/index.less';
 
+// store
+import store from './store';
+// theme
+import { ThemeProvider } from 'styled-components';
+import { lightTheme } from './assets/theme';
+
+// craco => create-react-app config
+// 配置项目的别名
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    {/* <Suspense fallback="loading"> */}
+    <ThemeProvider theme={lightTheme}>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </ThemeProvider>
+    {/* </Suspense> */}
+  </Provider >
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
